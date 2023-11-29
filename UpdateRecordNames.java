@@ -14,15 +14,15 @@ public class UpdateRecordNames {
 
 
     public static void main(String[] args) throws IOException {
-
         String currentDirectory = UpdateRecordNames.class
                 .getProtectionDomain()
                 .getCodeSource()
                 .getLocation()
                 .getPath();
 
-        try (Stream<Path> stream = Files.walk(Paths.get(currentDirectory))) {
-            stream.filter(Files::isRegularFile)
+        try (Stream<Path> fileWalkerStream = Files.walk(Paths.get(currentDirectory))) {
+            fileWalkerStream
+                    .filter(Files::isRegularFile)
                     .filter(path -> path.getFileName().toString().endsWith(".java"))
                     .forEach(path -> {
                         String fileContent = readFileContent(path);
