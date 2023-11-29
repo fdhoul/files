@@ -36,9 +36,10 @@ public class UpdateRecordNames {
     }
 
     private static String updateRecords(String fileContent) {
+        // getting intterContent as recordPattern regex will clash with the text 'interface'
         String innerContent = fileContent.substring(fileContent.indexOf("{"));
+        
         Matcher recordMatcher = recordPattern.matcher(innerContent);
-
         String updatedContent = fileContent;
 
         while (recordMatcher.find()) {
@@ -53,7 +54,6 @@ public class UpdateRecordNames {
 
     private static String updateRecordFields(String record) {
         Matcher recordFieldMatcher = recordFieldPattern.matcher(record);
-
         String updatedRecord = record;
 
         while (recordFieldMatcher.find()) {
